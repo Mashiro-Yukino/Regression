@@ -462,9 +462,6 @@ def linear_regression_6(df, attribute1, list_independent):
     # only take the coef, std err, t, and sig. columns from the summary
     anova_summary = anova_summary.tables[1]
 
-    unindependent_attribute = ['GDP', 'GovernmentExpenditure',
-                               'PersonalDisposableIncome', 'CPI', 'UnemploymentRate']
-
     coef = []
     std_err = []
     t = []
@@ -483,17 +480,14 @@ def linear_regression_6(df, attribute1, list_independent):
 
     # make a new table
     anova_table = pd.DataFrame(
-        index=['Constant', 'GDP', 'GovernmentExpenditure',
-               'PersonalDisposableIncome', 'CPI', 'UnemploymentRate'],
-        columns=[
-            'coef', 'std err', 't', 'sig.'])
+        index=["Constant"] + list_independent, columns=['coef', 'std err', 't', 'sig.'])
 
     # cite from : https://www.analyticsvidhya.com/blog/2021/03/standardized-vs-unstandardized-regression-coefficient/
 
     # skip the 0th element, which is the constant
     for i in range(1, 6):
         standardized_coef_beta.append(
-            float(coef[i]) * (df[unindependent_attribute[i - 1]].std() / df[attribute1].std()))
+            float(coef[i]) * (df[list_independent[i - 1]].std() / df[attribute1].std()))
 
     # fill the table
     anova_table['coef'] = coef
