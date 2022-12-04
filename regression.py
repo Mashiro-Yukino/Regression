@@ -384,7 +384,6 @@ def pearsonr_cal(df, attribute1, attribute2):
 
 
 def linear_regression_6(df, attribute1, list_independent):
-
     # cite1 from https://online.stat.psu.edu/stat415/book/export/html/822
 
     # do n-way anova test, dependent_variable is the dependent variable and independent_variables are GDP, GovernmentExpenditure, PersonalDisposableIncome, CPI, UnemploymentRate
@@ -435,7 +434,7 @@ def linear_regression_6(df, attribute1, list_independent):
 
     # make anova table, the attributes are sum_sq, df, Mean Square, F, the rows are the Regression, Residual, Total
     anova_table = pd.DataFrame(index=['Regression', 'Residual', 'Total'], columns=[
-                               'sum_sq', 'df', 'Mean Square', 'F', 'P'])
+        'sum_sq', 'df', 'Mean Square', 'F', 'P'])
 
     # fill the table
     anova_table['sum_sq']['Regression'] = sum_of_squares_regression
@@ -520,6 +519,123 @@ def linear_regression_6(df, attribute1, list_independent):
     #       standardized_coef_beta)
 
 
+def linear_regression_c(df, attribute1, list_independent):
+    # cite1 from https://online.stat.psu.edu/stat415/book/export/html/822
+
+    # do n-way anova test, dependent_variable is the dependent variable and independent_variables are GDP, GovernmentExpenditure, PersonalDisposableIncome, CPI, UnemploymentRate
+    anova_results = ols(
+        attribute1 + ' ~ GDP + Loans + Imports + GNP + Workeroutput + GovernmentExpenditure + PersonalDisposableIncome + RentalVacancyRate'
+                     ' + CPI + BondYield + EmploymentRate + UnemploymentRate + MedianEarnings + TEDSpread + ManufacturingOutput',
+        data=df).fit()
+
+    # get the anova table
+    anova_summary = anova_lm(anova_results)
+
+    # cite2 from https://www.statsmodels.org/dev/anova.html
+    # the total sum of squares is the sum of sum_sq in the anova table
+
+    total_sum_of_squares = anova_summary['sum_sq'].sum()
+
+    # the total degrees of freedom is the sum of df in the anova table
+    total_degrees_of_freedom = anova_summary['df'].sum()
+
+    table = sm.stats.anova_lm(anova_results, typ=2)
+
+    # only get the residual sum of squares result
+    residual_sum_of_squares = table['sum_sq'][len(list_independent)]
+    residual_df = table['df'][len(list_independent)]
+    residual_mean_square = (residual_sum_of_squares / residual_df)
+
+    # calculate sum of squares regression
+    sum_of_squares_regression = total_sum_of_squares - residual_sum_of_squares
+
+    # calculate degrees of freedom regression
+    degrees_of_freedom_regression = total_degrees_of_freedom - residual_df
+
+    # calculate mean square regression
+    mean_square_regression = sum_of_squares_regression / degrees_of_freedom_regression
+
+    # cite from : https://online.stat.psu.edu/stat415/book/export/html/822
+    # calculate f-statistic
+    f_regression = mean_square_regression / residual_mean_square
+
+    # calculate p-value
+    p_value = stats.f.sf(
+        f_regression, degrees_of_freedom_regression, residual_df)
+
+    # make anova table, the attributes are sum_sq, df, Mean Square, F, the rows are the Regression, Residual, Total
+    anova_table = pd.DataFrame(index=['Regression', 'Residual', 'Total'], columns=[
+        'sum_sq', 'df', 'Mean Square', 'F', 'P'])
+
+    # fill the table
+    anova_table['sum_sq']['Regression'] = sum_of_squares_regression
+    anova_table['df']['Regression'] = degrees_of_freedom_regression
+    anova_table['Mean Square']['Regression'] = mean_square_regression
+    anova_table['F']['Regression'] = f_regression
+
+    anova_table['sum_sq']['Residual'] = residual_sum_of_squares
+    anova_table['df']['Residual'] = residual_df
+    anova_table['Mean Square']['Residual'] = residual_mean_square
+
+    anova_table['sum_sq']['Total'] = total_sum_of_squares
+    anova_table['df']['Total'] = total_degrees_of_freedom
+
+    anova_table['P']['Regression'] = p_value
+
+    # save the anova table as png in 4 folder
+    if not os.path.exists('4/c'):
+        os.makedirs('4/c')
+
+    anova_table.to_csv('4/c/' + attribute1 + '_anova_table.csv')
+
+    anova_summary = anova_results.summary()
+
+    # only take the coef, std err, t, and sig. columns from the summary
+    anova_summary = anova_summary.tables[1]
+
+    coef = []
+    std_err = []
+    t = []
+    sig = []
+
+    # calculate standardized_coef_beta
+    standardized_coef_beta = []
+
+    # get the standardized_coef_beta
+
+    for i in range(1, len(list_independent) + 2):
+        coef.append(anova_summary.data[i][1])
+        std_err.append(anova_summary.data[i][2])
+        t.append(anova_summary.data[i][3])
+        sig.append(anova_summary.data[i][4])
+
+    # make a new table
+    anova_table = pd.DataFrame(
+        index=["Constant"] + list_independent, columns=['coef', 'std err', 't', 'sig.'])
+
+    # cite from : https://www.analyticsvidhya.com/blog/2021/03/standardized-vs-unstandardized-regression-coefficient/
+
+    # skip the 0th element, which is the constant
+    for i in range(1, len(list_independent) + 1):
+        standardized_coef_beta.append(
+            float(coef[i]) * (df[list_independent[i - 1]].std() / df[attribute1].std()))
+
+    # fill the table
+    anova_table['coef'] = coef
+    anova_table['std err'] = std_err
+    anova_table['t'] = t
+    anova_table['sig.'] = sig
+
+    # the standardized_coef_beta is the last column, the first element is blank
+    anova_table['standardized_coef_beta'] = [' '] + standardized_coef_beta
+
+    # save the table as csv in 4 folder
+    if not os.path.exists('4/c'):
+        os.makedirs('4/c')
+
+    anova_table.to_csv('4/c/' + attribute1 + '_initial_anova_Coefficient.csv')
+
+
 # ----- main ---------
 
 
@@ -549,8 +665,13 @@ def main():
     # pearsonr_p_value_table(fred_data)
 
     # -- b --
-    linear_regression_6(fred_data, "Deficit", [
-                        "GDP", "GovernmentExpenditure", "PersonalDisposableIncome", "CPI", "UnemploymentRate"])
+    # linear_regression_6(fred_data, "Deficit", [
+    #     "GDP", "GovernmentExpenditure", "PersonalDisposableIncome", "CPI", "UnemploymentRate"])
+
+    # -- c --
+    linear_regression_c(fred_data, "Deficit", [
+        "GDP", "Loans", 'Imports', 'GNP', 'Workeroutput', "GovernmentExpenditure", "PersonalDisposableIncome",
+        'RentalVacancyRate', "CPI", 'BondYield', 'EmploymentRate', "UnemploymentRate", 'MedianEarnings', 'TEDSpread', 'ManufacturingOutput'])
 
 
 if __name__ == '__main__':
