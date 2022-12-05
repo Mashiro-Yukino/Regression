@@ -4,19 +4,20 @@ import matplotlib.pyplot as plt
 from scipy import stats
 import statsmodels.api as sm
 from statsmodels.formula.api import ols
-import numpy as np
-import math
-
-from scipy.stats.mstats import zscore
 
 from statsmodels.stats.anova import anova_lm
+from sklearn import linear_model
+
+import numpy as np
+import seaborn as sns
 
 FRED = 'FredData.sav'
+LAB = 'lab1a.sav'
 
 
 def read_file(filename):
     # pip install pyreadstat
-    df = pd.read_spss('FredData.sav')
+    df = pd.read_spss(filename)
 
     return df
 
@@ -523,10 +524,8 @@ def linear_regression_c(df, attribute1, list_independent):
     # cite1 from https://online.stat.psu.edu/stat415/book/export/html/822
 
     # do n-way anova test, dependent_variable is the dependent variable and independent_variables are GDP, GovernmentExpenditure, PersonalDisposableIncome, CPI, UnemploymentRate
-    anova_results = ols(
-        attribute1 + ' ~ GDP + Loans + Imports + GNP + Workeroutput + GovernmentExpenditure + PersonalDisposableIncome + RentalVacancyRate'
-                     ' + CPI + BondYield + EmploymentRate + UnemploymentRate + MedianEarnings + TEDSpread + ManufacturingOutput',
-        data=df).fit()
+    anova_results = ols(attribute1 + ' ~ ' +
+                        ' + '.join(list_independent), data=df).fit()
 
     # get the anova table
     anova_summary = anova_lm(anova_results)
@@ -635,12 +634,287 @@ def linear_regression_c(df, attribute1, list_independent):
 
     anova_table.to_csv('4/c/' + attribute1 + '_initial_anova_Coefficient.csv')
 
+    # return dictionary with each attribute and corresponding sigma
+    # initialize the dictionary
+    dict_sigma = {}
+
+    # get the sigma from the anova table
+
+    # fill the dictionary
+    for i in range(1, len(list_independent) + 1):
+        dict_sigma[list_independent[i - 1]] = float(anova_table['sig.'][i])
+
+    return dict_sigma
+
+
+def anova_model(df, attribute1, list_independent):
+    # cite1 from https://online.stat.psu.edu/stat415/book/export/html/822
+
+    # do n-way anova test, dependent_variable is the dependent variable and independent_variables are GDP, GovernmentExpenditure, PersonalDisposableIncome, CPI, UnemploymentRate
+    anova_results = ols(attribute1 + ' ~ ' +
+                        ' + '.join(list_independent), data=df).fit()
+
+    # get the anova table
+    anova_summary = anova_lm(anova_results)
+
+    # cite2 from https://www.statsmodels.org/dev/anova.html
+    # the total sum of squares is the sum of sum_sq in the anova table
+
+    total_sum_of_squares = anova_summary['sum_sq'].sum()
+
+    # the total degrees of freedom is the sum of df in the anova table
+    total_degrees_of_freedom = anova_summary['df'].sum()
+
+    table = sm.stats.anova_lm(anova_results, typ=2)
+
+    # only get the residual sum of squares result
+    residual_sum_of_squares = table['sum_sq'][len(list_independent)]
+    residual_df = table['df'][len(list_independent)]
+    residual_mean_square = (residual_sum_of_squares / residual_df)
+
+    # calculate sum of squares regression
+    sum_of_squares_regression = total_sum_of_squares - residual_sum_of_squares
+
+    # calculate degrees of freedom regression
+    degrees_of_freedom_regression = total_degrees_of_freedom - residual_df
+
+    # calculate mean square regression
+    mean_square_regression = sum_of_squares_regression / degrees_of_freedom_regression
+
+    # cite from : https://online.stat.psu.edu/stat415/book/export/html/822
+    # calculate f-statistic
+    f_regression = mean_square_regression / residual_mean_square
+
+    # calculate p-value
+    p_value = stats.f.sf(
+        f_regression, degrees_of_freedom_regression, residual_df)
+
+    # make anova table, the attributes are sum_sq, df, Mean Square, F, the rows are the Regression, Residual, Total
+    anova_table = pd.DataFrame(index=['Regression', 'Residual', 'Total'], columns=[
+        'sum_sq', 'df', 'Mean Square', 'F', 'P'])
+
+    # fill the table
+    anova_table['sum_sq']['Regression'] = sum_of_squares_regression
+    anova_table['df']['Regression'] = degrees_of_freedom_regression
+    anova_table['Mean Square']['Regression'] = mean_square_regression
+    anova_table['F']['Regression'] = f_regression
+
+    anova_table['sum_sq']['Residual'] = residual_sum_of_squares
+    anova_table['df']['Residual'] = residual_df
+    anova_table['Mean Square']['Residual'] = residual_mean_square
+
+    anova_table['sum_sq']['Total'] = total_sum_of_squares
+    anova_table['df']['Total'] = total_degrees_of_freedom
+
+    anova_table['P']['Regression'] = p_value
+
+    # save the anova table as png in 4 folder
+    if not os.path.exists('4/c'):
+        os.makedirs('4/c')
+
+    anova_table.to_csv('4/c/' + attribute1 + '_final_anova_table.csv')
+
+    anova_summary = anova_results.summary()
+
+    # only take the coef, std err, t, and sig. columns from the summary
+    anova_summary = anova_summary.tables[1]
+
+    coef = []
+    std_err = []
+    t = []
+    sig = []
+
+    # calculate standardized_coef_beta
+    standardized_coef_beta = []
+
+    # get the standardized_coef_beta
+
+    for i in range(1, len(list_independent) + 2):
+        coef.append(anova_summary.data[i][1])
+        std_err.append(anova_summary.data[i][2])
+        t.append(anova_summary.data[i][3])
+        sig.append(anova_summary.data[i][4])
+
+    # make a new table
+    anova_table = pd.DataFrame(
+        index=["Constant"] + list_independent, columns=['coef', 'std err', 't', 'sig.'])
+
+    # cite from : https://www.analyticsvidhya.com/blog/2021/03/standardized-vs-unstandardized-regression-coefficient/
+
+    # skip the 0th element, which is the constant
+    for i in range(1, len(list_independent) + 1):
+        standardized_coef_beta.append(
+            float(coef[i]) * (df[list_independent[i - 1]].std() / df[attribute1].std()))
+
+    # fill the table
+    anova_table['coef'] = coef
+    anova_table['std err'] = std_err
+    anova_table['t'] = t
+    anova_table['sig.'] = sig
+
+    # the standardized_coef_beta is the last column, the first element is blank
+    anova_table['standardized_coef_beta'] = [' '] + standardized_coef_beta
+
+    # save the table as csv in 4 folder
+    if not os.path.exists('4/c'):
+        os.makedirs('4/c')
+
+    anova_table.to_csv('4/c/' + attribute1 + '_final_anova_Coefficient.csv')
+
+    # return dictionary with each attribute and corresponding sigma
+    # initialize the dictionary
+    dict_sigma = {}
+
+    # get the sigma from the anova table
+
+    # fill the dictionary
+    for i in range(1, len(list_independent) + 1):
+        dict_sigma[list_independent[i - 1]] = float(anova_table['sig.'][i])
+
+    return dict_sigma
+
+
+def continue_drop_until_all_p_value_less_than_0_05(dict_sigma, df, attribute1, list_independent):
+    # get the max p-value
+    max_p_value = max(dict_sigma.values())
+
+    while max_p_value > 0.05:
+        # drop the attribute with the max p-value
+        for key, value in dict_sigma.items():
+            if value == max_p_value:
+                df = df.drop(columns=[key])
+                list_independent.remove(key)
+                dict_sigma = anova_model(df, attribute1, list_independent)
+
+        # get the max p-value
+        max_p_value = max(dict_sigma.values())
+
+    return dict_sigma, df, attribute1, list_independent
+
+
+def univraite_regression(df, dependent, fixed_factor):
+    # find dependent and independent variables's location
+    dependent_location = df.columns.get_loc(dependent)
+    fixed_factor_location_0 = df.columns.get_loc(fixed_factor[0])
+    fixed_factor_location_1 = df.columns.get_loc(fixed_factor[1])
+
+    print("dependent_location", dependent_location)
+    print("fixed_factor_location_0", fixed_factor_location_0)
+    print("fixed_factor_location_1", fixed_factor_location_1)
+
+    # drop na
+    dependent = df.iloc[:, dependent_location].dropna()
+
+    fixed_factor_0 = df.iloc[:, fixed_factor_location_0]
+    fixed_factor_1 = df.iloc[:, fixed_factor_location_1]
+
+    # quantify fixed_factor_0, go through each element in fixed_factor_0, put corresponding number in the list
+    # if it's Male, then change it to 1, if it is Female, then change it to 2
+    sex_list = []
+    for i in range(len(fixed_factor_0)):
+        if fixed_factor_0.iloc[i] == "Male":
+            sex_list.append(1)
+        elif fixed_factor_0.iloc[i] == "Female":
+            sex_list.append(2)
+        else:
+            sex_list.append(-1)
+
+    time_chd = []
+    for i in range(len(dependent)):
+        time_chd.append(df.iloc[i, dependent_location])
+
+    hyperten = []
+    for i in range(len(fixed_factor_1)):
+        if fixed_factor_1.iloc[i] == 'No':
+            hyperten.append(0)
+        elif fixed_factor_1.iloc[i] == 'Yes':
+            hyperten.append(1)
+        else:
+            hyperten.append(-1)
+
+    # combine all the list (time_chd, hyperten, sex_list) into a list of list
+    list_of_list = [time_chd, hyperten, sex_list]
+
+    # transpose the list of list
+    list_of_list = list(map(list, zip(*list_of_list)))
+
+    # change it as array
+    test_array = np.array(list_of_list)
+
+    # https://stackoverflow.com/questions/53460099/how-to-do-a-regression-starting-from-a-list-of-list-of-elements
+
+    dataframe = pd.DataFrame(test_array, columns=[
+        'time_chd', 'hyperten', 'sex'])
+
+    # perform two-way anova
+    # cite : https://www.statology.org/two-way-anova-python/
+    model = ols(
+        'time_chd ~ C(hyperten) + C(sex) + C(hyperten):C(sex)', data=dataframe).fit()
+    result = sm.stats.anova_lm(model, type=2)
+
+    # save the result as csv in 5 folder
+    if not os.path.exists('5'):
+        os.makedirs('5')
+
+    # cite from : https://www.pybloggers.com/2016/03/three-ways-to-do-a-two-way-anova-with-python/
+    def eta_squared(aov):
+        aov['eta_sq'] = 'NaN'
+        aov['eta_sq'] = aov[:-1]['sum_sq'] / sum(aov['sum_sq'])
+        return aov
+
+    def omega_squared(aov):
+        mse = aov['sum_sq'][-1] / aov['df'][-1]
+        aov['omega_sq'] = 'NaN'
+        aov['omega_sq'] = (aov[:-1]['sum_sq'] -
+                           (aov[:-1]['df'] * mse)) / (sum(aov['sum_sq']) + mse)
+        return aov
+
+    # only get 4th C(hyperten):C(sex) row
+    sex1_and_hyperten = result.iloc[2]
+
+    g = sns.lmplot(x="sex", y="time_chd", data=dataframe, hue="hyperten")
+
+    # y-limit is 15 - 21
+    g.set(ylim=(15, 21))
+
+    # x-tick is 1 and 2
+    g.set(xticks=[1, 2])
+
+    # my x-tick label
+    my_xticklabels = ['Male', 'Female']
+
+    # set the x-tick label
+    g.set_xticklabels(my_xticklabels)
+
+    # my legend label
+    my_legend_labels = ['No', 'Yes']
+
+    # set the legend label to my legend label
+    g._legend.set_title('Incident Hypertension')
+
+    # set the legend label
+    for t, l in zip(g._legend.texts, my_legend_labels):
+        t.set_text(l)
+
+    # move the legend to the right
+    g._legend.set_bbox_to_anchor([1.15, 0.5])
+
+    # set the title of the graph
+    # cife from : https://stackoverflow.com/questions/46307941/how-can-i-add-title-on-seaborn-lmplot
+    ax = plt.gca()
+    ax.set_title("Estimated Marginal Means of Time (years) to CHD")
+
+    # save the graph as png
+    plt.savefig('5/Estimated Marginal Means of Time (years) to CHD.png',
+                dpi=300, bbox_inches='tight')
+
 
 # ----- main ---------
 
 
 def main():
     fred_data = read_file(FRED)
+    lab_data = read_file(LAB)
 
     # ---- 1 -----
 
@@ -669,9 +943,23 @@ def main():
     #     "GDP", "GovernmentExpenditure", "PersonalDisposableIncome", "CPI", "UnemploymentRate"])
 
     # -- c --
-    linear_regression_c(fred_data, "Deficit", [
+    dict_sigma = linear_regression_c(fred_data, "Deficit", [
         "GDP", "Loans", 'Imports', 'GNP', 'Workeroutput', "GovernmentExpenditure", "PersonalDisposableIncome",
-        'RentalVacancyRate', "CPI", 'BondYield', 'EmploymentRate', "UnemploymentRate", 'MedianEarnings', 'TEDSpread', 'ManufacturingOutput'])
+        'RentalVacancyRate', "CPI", 'BondYield', 'EmploymentRate', "UnemploymentRate", 'MedianEarnings', 'TEDSpread',
+        'ManufacturingOutput'])
+
+    # drop_biggest_p_value
+    continue_drop_until_all_p_value_less_than_0_05(dict_sigma, fred_data, "Deficit", [
+        "GDP", "Loans", 'Imports', 'GNP', 'Workeroutput', "GovernmentExpenditure", "PersonalDisposableIncome",
+        'RentalVacancyRate', "CPI", 'BondYield', 'EmploymentRate', "UnemploymentRate", 'MedianEarnings', 'TEDSpread',
+        'ManufacturingOutput'])
+
+    # dict_sigma = linear_regression_c(fred_data, "Deficit", [
+    #     "GDP", "Loans", 'RentalVacancyRate', 'BondYield', 'EmploymentRate',  'MedianEarnings',
+    #     'ManufacturingOutput'])
+
+    # ---- 5 ------
+    univraite_regression(lab_data, "timechd", ['sex1', 'hyperten'])
 
 
 if __name__ == '__main__':
