@@ -6,7 +6,8 @@ import statsmodels.api as sm
 from statsmodels.formula.api import ols
 
 from statsmodels.stats.anova import anova_lm
-from sklearn import linear_model
+import statsmodels.formula.api as smf
+from scipy.stats import chi2_contingency
 
 import numpy as np
 import seaborn as sns
@@ -856,19 +857,6 @@ def univraite_regression(df, dependent, fixed_factor):
     if not os.path.exists('5'):
         os.makedirs('5')
 
-    # cite from : https://www.pybloggers.com/2016/03/three-ways-to-do-a-two-way-anova-with-python/
-    def eta_squared(aov):
-        aov['eta_sq'] = 'NaN'
-        aov['eta_sq'] = aov[:-1]['sum_sq'] / sum(aov['sum_sq'])
-        return aov
-
-    def omega_squared(aov):
-        mse = aov['sum_sq'][-1] / aov['df'][-1]
-        aov['omega_sq'] = 'NaN'
-        aov['omega_sq'] = (aov[:-1]['sum_sq'] -
-                           (aov[:-1]['df'] * mse)) / (sum(aov['sum_sq']) + mse)
-        return aov
-
     # only get 4th C(hyperten):C(sex) row
     sex1_and_hyperten = result.iloc[2]
 
@@ -907,6 +895,188 @@ def univraite_regression(df, dependent, fixed_factor):
     # save the graph as png
     plt.savefig('5/Estimated Marginal Means of Time (years) to CHD.png',
                 dpi=300, bbox_inches='tight')
+
+    plt.show()
+
+    # make a new table
+    anova_table = pd.DataFrame(index=['Hyperten', 'Sex', 'Hyperten * Sex', 'Error'], columns=[
+        'df', 'sum_sq', 'mean_sq', 'F', 'sig.'])
+
+    # get the sum_sq, df, F, PR(>F) from the result
+    for i in range(4):
+        anova_table.iloc[i, 0] = result.iloc[i, 0]
+        anova_table.iloc[i, 1] = result.iloc[i, 1]
+        anova_table.iloc[i, 2] = result.iloc[i, 2]
+        anova_table.iloc[i, 3] = result.iloc[i, 3]
+        anova_table.iloc[i, 4] = result.iloc[i, 4]
+
+    # save the table as csv
+    anova_table.to_csv('5/ANOVA_table.csv')
+
+
+def build_Boxplot(lab_data, y_axis, x_axis, cluster):
+    # get all the data
+    data = lab_data
+
+    # get the data of y_axis
+    data_y = data[y_axis]
+
+    # get the data of x_axis
+    data_x = data[x_axis]
+
+    # get the data of cluster
+    data_cluster = data[cluster]
+
+    # draw the boxplot
+    sns.boxplot(x=data_x, y=data_y, hue=data_cluster)
+
+    # save the graph as png
+    plt.savefig('5/Boxplot.png', dpi=300, bbox_inches='tight')
+
+    # set the title of the graph
+    plt.title(
+        "Clustered Boxplot of Time (years) to CHD by sex, exam 1 by Incident Hypertension")
+
+    plt.show()
+
+
+# --- 6 ----
+def binary_logistic(df, dependent, all_the_factors):
+    # cite from : https://www.geeksforgeeks.org/logistic-regression-using-statsmodels/
+
+    #
+    all_thing = df[all_the_factors]
+    # print all the covariates
+    print(all_thing)
+
+    # if any row has null value, delete that row in dataframe
+    all_thing = all_thing.dropna()
+    print(all_thing)
+
+    # quantify the covariates, if the value is "No", set it as 0, if the value is "Yes", set it as 1
+    # if the value is 'Male', set it as 1, if the value is 'Female', set it as 2
+    # first, create a new dataframe
+    new_df = pd.DataFrame()
+
+    changed_factors = ["prevstrk3", 'sex1', 'cursmoke1', 'diabetes1', 'bpmeds1',
+                       'prevchd1',
+                       'prevap1', 'prevmi1', 'prevhyp1']
+
+    # then copy all_thing to new_df, if if the value is "No", set it as 0, if the value is "Yes", set it as 1
+    # if the value is 'Male', set it as 1, if the value is 'Female', set it as 2
+    for i in all_thing:
+        if i in changed_factors:
+            new_df[i] = all_thing[i].map(
+                {'No': 0, 'Yes': 1, 'Male': 1, 'Female': 2})
+        else:
+            new_df[i] = all_thing[i]
+
+    # print the first column of new_df
+    print(new_df)
+
+    # the dependent variable is the first column of new_df
+    y = new_df[dependent]
+
+    print(y)
+
+    # the independent variable is the rest of the columns of new_df
+    x = new_df.drop(dependent, axis=1)
+
+    print(x)
+
+    # build the logistic regression model
+    model = sm.Logit(y, x).fit()
+
+    # save the summary of the model as txt in 6 folder
+    if not os.path.exists('6'):
+        os.makedirs('6')
+
+    with open('6/summary.txt', 'w') as f:
+        f.write(str(model.summary()))
+
+    # using the predict function to predict the dependent variable, and save it in a table
+    # make a new table
+    prediction_table = pd.DataFrame(index=['Predicted No', 'Predicted Yes', 'Overall Percentage'], columns=[
+        'Observed No', 'Observed Yes', 'Percentage correct'])
+
+    # get the predicted probability
+    prediction = model.predict(x)
+
+    # get the chi-square value
+    # cite from : https://byjus.com/maths/chi-square-test/
+    # using the formula : chi-square = sum((observed - expected)^2 / expected)
+    # observed is the number of observed value
+    # expected is the number of expected value
+    # in this case, the expected value is the number of predicted value
+    chi_square = 0
+    for i in range(len(prediction)):
+        chi_square += (y.iloc[i] - prediction.iloc[i]
+                       ) ** 2 / prediction.iloc[i]
+
+    df = len(all_the_factors) - 1
+
+    # get the p-value
+    p_value = 1 - stats.chi2.cdf(chi_square, df)
+
+    # make a new table named Omnibus Tests of Model Coefficients
+    Omnibus_table = pd.DataFrame(index=['Chi-square', 'Degree of freedom', 'P-value'], columns=[
+        'Value'])
+
+    # get the chi-square value
+    Omnibus_table.iloc[0, 0] = chi_square
+
+    # get the p-value
+    Omnibus_table.iloc[2, 0] = p_value
+
+    # get the degree of freedom
+    Omnibus_table.iloc[1, 0] = df
+
+    # save the table as csv
+    if not os.path.exists('6'):
+        os.makedirs('6')
+
+    Omnibus_table.to_csv('6/Omnibus Tests of Model Coefficients.csv')
+
+    # if the predicted probability is greater than 0.5, set it as 1, if the predicted probability is less than 0.5, set it as 0
+    prediction = [1 if i > 0.5 else 0 for i in prediction]
+
+    # get the observed value
+    observed_value = y
+
+    # save the result in the table
+    prediction_table.iloc[0, 0] = sum(
+        [1 if i == 0 and j == 0 else 0 for i, j in zip(prediction, observed_value)])
+
+    prediction_table.iloc[0, 1] = sum(
+        [1 if i == 0 and j == 1 else 0 for i, j in zip(prediction, observed_value)])
+
+    prediction_table.iloc[1, 0] = sum(
+        [1 if i == 1 and j == 0 else 0 for i, j in zip(prediction, observed_value)])
+
+    prediction_table.iloc[1, 1] = sum(
+        [1 if i == 1 and j == 1 else 0 for i, j in zip(prediction, observed_value)])
+
+    # save [0, 2] as the [0,0] divided by the sum of [0,0] and [1,0]
+    prediction_table.iloc[0, 2] = prediction_table.iloc[0, 0] / \
+        (prediction_table.iloc[0, 0] + prediction_table.iloc[0, 1])
+
+    # save [1, 2] as the [1,1] divided by the sum of [1,1] and [1,0]. if the sum of [1,1] and [1,0] is 0, set it as 0
+    if prediction_table.iloc[1, 0] + prediction_table.iloc[1, 1] == 0:
+        prediction_table.iloc[1, 2] = 0
+    else:
+        prediction_table.iloc[1, 2] = prediction_table.iloc[1, 1] / \
+            (prediction_table.iloc[1, 0] + prediction_table.iloc[1, 1])
+
+    # save [2, 3] as the sum of [0,0] and [1,1] divided by the sum of [0,0], [0,1], [1,0], [1,1]
+    prediction_table.iloc[2, 2] = (prediction_table.iloc[0, 0] + prediction_table.iloc[1, 1]) / \
+                                  (prediction_table.iloc[0, 0] + prediction_table.iloc[0, 1] +
+                                   prediction_table.iloc[1, 0] + prediction_table.iloc[1, 1])
+
+    # save the table as csv
+    if not os.path.exists('6'):
+        os.makedirs('6')
+
+    prediction_table.to_csv('6/prediction_table.csv')
 
 
 # ----- main ---------
@@ -959,7 +1129,19 @@ def main():
     #     'ManufacturingOutput'])
 
     # ---- 5 ------
-    univraite_regression(lab_data, "timechd", ['sex1', 'hyperten'])
+    univraite_regression(
+        lab_data, "timechd", ['sex1', 'hyperten'])
+
+    build_Boxplot(lab_data, "timechd", 'sex1', 'hyperten')
+
+    # ----- 6 -------
+    # binary_logistic(lab_data, "prevstrk3", ["prevstrk3", 'sex1', 'totchol1', 'age1', 'sysbp1', 'diabp1', 'cursmoke1',
+    #                                         'cigpday1', 'bmi1', 'diabetes1', 'bpmeds1', 'heartrte1', 'glucose1',
+    #                                         'prevchd1',
+    #                                         'prevap1', 'prevmi1', 'prevhyp1'])
+
+    binary_logistic(lab_data, "prevstrk3", [
+        "prevstrk3", 'sex1', 'age1', 'sysbp1', 'cursmoke1', 'bmi1'])
 
 
 if __name__ == '__main__':
