@@ -947,11 +947,9 @@ def binary_logistic(df, dependent, all_the_factors):
     #
     all_thing = df[all_the_factors]
     # print all the covariates
-    print(all_thing)
 
     # if any row has null value, delete that row in dataframe
     all_thing = all_thing.dropna()
-    print(all_thing)
 
     # quantify the covariates, if the value is "No", set it as 0, if the value is "Yes", set it as 1
     # if the value is 'Male', set it as 1, if the value is 'Female', set it as 2
@@ -971,18 +969,11 @@ def binary_logistic(df, dependent, all_the_factors):
         else:
             new_df[i] = all_thing[i]
 
-    # print the first column of new_df
-    print(new_df)
-
     # the dependent variable is the first column of new_df
     y = new_df[dependent]
 
-    print(y)
-
     # the independent variable is the rest of the columns of new_df
     x = new_df.drop(dependent, axis=1)
-
-    print(x)
 
     # build the logistic regression model
     model = sm.Logit(y, x).fit()
