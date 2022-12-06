@@ -36,6 +36,11 @@ $$S E_{\text {skew }}=\sqrt{\frac{6 \cdot n \cdot(n-1)}{(n-2) \cdot(n+1) \cdot(n
 
 - using **pandas.DataFrame.kurt** to generate Kurtosis Statistic
 
+- calculate **standard error of kurtosis**  [[2]](#2) using the following formula.
+$$S E_{k}=\sqrt{\frac{\left(4 \cdot N^{2}-1\right) \cdot(N-1)}{(N-2)(N+1)(N+3)}}$$
+
+- using **pandas.DataFrame.loc** to 
+
 
 
 
