@@ -25,6 +25,9 @@ The data for problems 1-4 comes from FRED (the St. Louis Federal Reserve Bank).
 ## Regression related questions
 
 ### Question 1 : 
+
+#### Methods
+
 Let’s get a basic summary of some of the data
 
 - using **pandas.DataFrame.describe** to generate descriptive statistics.
@@ -39,8 +42,10 @@ $$S E_{\text {skew }}=\sqrt{\frac{6 \cdot n \cdot(n-1)}{(n-2) \cdot(n+1) \cdot(n
 - calculate **standard error of kurtosis**  [[2]](#2) using the following formula.
 $$S E_{k}=\sqrt{\frac{\left(4 \cdot N^{2}-1\right) \cdot(N-1)}{(N-2)(N+1)(N+3)}}$$
 
-- using **pandas.DataFrame.loc** to 
 
+#### Result
+The summary we get is :
+https://github.com/Mashiro-Yukino/Regression/blob/main/1/summary.csv
 
 
 
