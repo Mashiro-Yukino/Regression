@@ -11,7 +11,7 @@
 
 ### Read data:
 
-using pandas to read spss file [[1]](#1). (both Lab1a.sav and FredData.sav)
+using pandas to read spss file [[1]](#1). (both **Lab1a.sav** and **FredData.sav**)
 
 ```py
 pandas.read_spss(path, usecols=None, convert_categoricals=True)
