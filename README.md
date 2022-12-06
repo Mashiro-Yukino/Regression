@@ -34,7 +34,7 @@ Let’s get a basic summary of some of the data
 $$S E_{\text {skew }}=\sqrt{\frac{6 \cdot n \cdot(n-1)}{(n-2) \cdot(n+1) \cdot(n+3)}}$$
 
 
-- 
+- using **pandas.DataFrame.kurt** to generate Kurtosis Statistic
 
 
 
@@ -47,4 +47,4 @@ https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_spss.html
 
 
 <a id="2">[2]</a> 
-https://www.youtube.com/watch?v=ED5pnJYqjTE
+https://www.stattutorials.com/EXCEL/EXCEL-DESCRIPTIVE-STATISTICS.html
