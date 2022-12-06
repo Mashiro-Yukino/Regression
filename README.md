@@ -18,6 +18,24 @@ pandas.read_spss(path, usecols=None, convert_categoricals=True)
 ```
 
 
+### Questions Description
+
+The data for problems 1-4 comes from FRED (the St. Louis Federal Reserve Bank). 
+
+## Regression related questions
+
+### Question 1 : 
+Let’s get a basic summary of some of the data
+
+- using **pandas.DataFrame.describe** to generate descriptive statistics.
+- using **pandas.DataFrame.skew** to get skewness
+- calculate **SES**  [[2]](#2) using the following formula.
+
+$$S E_{\text {skew }}=\sqrt{\frac{6 \cdot n \cdot(n-1)}{(n-2) \cdot(n+1) \cdot(n+3)}}$$
+
+
+- 
+
 
 
 
@@ -26,3 +44,7 @@ pandas.read_spss(path, usecols=None, convert_categoricals=True)
 ## References : 
 <a id="1">[1]</a> 
 https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_spss.html
+
+
+<a id="2">[2]</a> 
+https://www.youtube.com/watch?v=ED5pnJYqjTE
