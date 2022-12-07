@@ -45,7 +45,7 @@ $$S E_{k}=\sqrt{\frac{\left(4 \cdot N^{2}-1\right) \cdot(N-1)}{(N-2)(N+1)(N+3)}}
 
 
 #### Result
-The summary we get is :
+The whole summary we get is :
 https://github.com/Mashiro-Yukino/Regression/blob/main/1/summary.csv
 
 
@@ -73,6 +73,9 @@ The variables **Personal Disposable Income** and **Median Weekly Earnings** appe
 
     '''
 ```
+
+
+### 2 
 
 
 
