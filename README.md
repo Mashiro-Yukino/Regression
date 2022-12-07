@@ -82,7 +82,6 @@ There are a few ways to look at the summaries of the data. Let’s use a second 
 
 - Using **pandas.DataFrame.describe** to generate descriptive statistics.
 - Calculate the `range` by finding the difference between the min and max values 
-- Using **summary.loc['count']** to get valid numbers.
 - Calculate the length of `missing value` by the difference between the dataframe length and the length of valid value.
 
 #### Result
