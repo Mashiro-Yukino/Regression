@@ -57,7 +57,7 @@ https://github.com/Mashiro-Yukino/Regression/blob/main/1/summary.csv
 
 - From the above summary, extract the kurtosis_statistic, skewness_statistic, kurtosis_standard_error, skewness_standard_error for each variables.
 
-- 
+- Check if the absolute value of the **kurtosis_statistic** is less than 2 times the **kurtosis_standard_error** and if the absolute value of the skewness statistic is less than 2 times the **skewness_standard_error**. If both conditions are met, we consider that variables is ’Normal’, we consider it is 'Not Normal'.
 
 
 #### Result
