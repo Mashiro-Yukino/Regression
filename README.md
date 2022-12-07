@@ -24,22 +24,20 @@ The data for problems 1-4 comes from FRED (the St. Louis Federal Reserve Bank).
 
 ## Regression related questions
 
-### Question 1 : 
+### 1: Let’s get a basic summary of some of the data:
 
 #### Methods
 
-Let’s get a basic summary of some of the data
-
-- using **pandas.DataFrame.describe** to generate descriptive statistics.
-- using **pandas.DataFrame.skew** to get skewness
-- calculate **SES**  [[2]](#2) using the following formula.
+- Using **pandas.DataFrame.describe** to generate descriptive statistics.
+- Using **pandas.DataFrame.skew** to get skewness
+- Calculate `SES`   [[2]](#2) using the following formula.
 
 $$S E_{\text {skew }}=\sqrt{\frac{6 \cdot n \cdot(n-1)}{(n-2) \cdot(n+1) \cdot(n+3)}}$$
 
 
-- using **pandas.DataFrame.kurt** to generate Kurtosis Statistic
+- Using **pandas.DataFrame.kurt** to generate Kurtosis Statistic
 
-- calculate **standard error of kurtosis**  [[2]](#2) using the following formula.
+- Calculate `standard error of kurtosis` [[2]](#2) using the following formula.
 $$S E_{k}=\sqrt{\frac{\left(4 \cdot N^{2}-1\right) \cdot(N-1)}{(N-2)(N+1)(N+3)}}$$
 
 
@@ -47,8 +45,48 @@ $$S E_{k}=\sqrt{\frac{\left(4 \cdot N^{2}-1\right) \cdot(N-1)}{(N-2)(N+1)(N+3)}}
 
 
 #### Result
-The summary we get is :
+The whole summary we get is :
 https://github.com/Mashiro-Yukino/Regression/blob/main/1/summary.csv
+
+
+### 1.1: Decide which variables are normal?
+
+> Aside: kurtosis and skewness are used to check if the data is normal—both should be close to 0 if the data is normal; kurtosis measures how close to the center the data is, a positive value says the data is clustered more tightly than if it was normal; skewness measures how symmetric the data is, a positive value says the data is skewed right. A rough guideline is the data is ok if the statistic is less than double the standard error. Does it appear that any of the variables are normal using this criteria? If so, list them.
+
+#### Methods
+
+- From the above summary, extract the kurtosis_statistic, skewness_statistic, kurtosis_standard_error, skewness_standard_error for each variables.
+
+- Check if the absolute value of the `kurtosis_statistic` is less than 2 times the `kurtosis_standard_error` and if the absolute value of the skewness statistic is less than 2 times the `skewness_standard_error`. If both conditions are met, we consider that variables is ’Normal’, otherwise, we consider it is 'Not Normal'.
+
+
+#### Result
+The variables **Personal Disposable Income** and **Median Weekly Earnings** appear to be normal.
+
+```
+    '''
+    Output :
+
+        The following columns are normal:
+        PersonalDisposableIncome
+        MedianEarnings
+
+    '''
+```
+
+
+### 2: More Summary
+There are a few ways to look at the summaries of the data. Let’s use a second here:
+
+#### Method
+
+- Using **pandas.DataFrame.describe** to generate descriptive statistics.
+- Calculate the `range` by finding the difference between the min and max values 
+- Calculate the length of `missing value` by the difference between the dataframe length and the length of valid value.
+
+#### Result
+
+The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/main/2/further_summary.csv
 
 
 
