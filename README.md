@@ -63,6 +63,17 @@ https://github.com/Mashiro-Yukino/Regression/blob/main/1/summary.csv
 #### Result
 The variables **Personal Disposable Income** and **Median Weekly Earnings** appear to be normal.
 
+```
+    '''
+    Output :
+
+        The following columns are normal:
+        PersonalDisposableIncome
+        MedianEarnings
+
+    '''
+```
+
 
 
 
