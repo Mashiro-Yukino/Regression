@@ -90,6 +90,24 @@ The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/
 
 
 
+### 3: Let’s get a few basic graphs
+#### 3a: The histogram for one of the variables
+
+
+##### Method
+
+- Pass in a variable that you want to choose
+- Using **pandas.DataFrame.mean**, **pandas.DataFrame.std** to calculate `mean` and `std` of the variable.
+- draw histogram by using `matplotlib.pyplot.hist`.
+- add the title and axis labels using  **plt.title**, **plt.xlabel**, **plt.ylabel**.
+- Using **plt.text** to add mean and std to the histogram.
+
+##### Result
+
+![CommercialAndIndustrialLoans_histogram](https://user-images.githubusercontent.com/67991315/206294516-1a4ebdc2-cae9-46e9-972b-9c3efe36d70a.png)
+
+
+
 
 
 ## References : 
