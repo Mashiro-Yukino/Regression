@@ -128,7 +128,7 @@ This graph also has one main peak (at about 10), is skewed a bit to the left, an
 ###### case 1 (bins=20) : 
 ![CommercialAndIndustrialLoans_histogram](https://user-images.githubusercontent.com/67991315/206509675-96814017-882d-4d01-aac9-feedf8b0c8dd.png)
 
-This time it is skewed a bit to the right. 
+This time the shape is changed a little bit.
 
 
 
