@@ -179,6 +179,8 @@ methods:
 - Ignore the `Date` variable.
 - Get `Pearson correlation coefficient` and `p-value` to  find the correlation between each of the two variables using **scipy.stats.pearsonr**.
 - Using **Python min()** to find `N`.
+- For each cell of the table, use **for loop** to combine the relevant information we need for each cell in the table with **'/'** symbol.
+The final format we use is `Pearson Correlation/Sig. (2-tailed)/N`.
 
 ##### Result
 
