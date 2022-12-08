@@ -180,7 +180,7 @@ methods:
 - Get `Pearson correlation coefficient` and `p-value` to  find the correlation between each of the two variables using **scipy.stats.pearsonr**.
 - Using **Python min()** to find `N`.
 - For each cell of the table, use **for loop** to combine needed informations for each cell in the table with **'/'**.
-The final format we use is `Pearson Correlation/ Sig. (2-tailed)/ N`.
+The final format is `Pearson Correlation/ Sig. (2-tailed)/ N`.
 
 ##### Result
 
