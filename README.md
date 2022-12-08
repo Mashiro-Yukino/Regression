@@ -90,6 +90,27 @@ The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/
 
 
 
+### 3: Let’s get a few basic graphs
+#### 3a: The histogram for one of the variables
+
+
+##### Method
+
+- Pass in a variable that you want to choose
+- Using **pandas.DataFrame.mean**, **pandas.DataFrame.std** to calculate `mean` and `std` of the variable.
+- draw histogram by using **matplotlib.pyplot.hist**, first we first input `df['GDP']` to make a simple Histogram of GDP.
+- add the title and axis labels using  **plt.title**, **plt.xlabel**, **plt.ylabel**.
+- Using **plt.text** to add mean and std to the histogram.
+
+##### Result
+
+![GDP_histogram](https://user-images.githubusercontent.com/67991315/206498805-287492e9-0cea-4723-a165-2c388fabcd00.png)
+
+The graph has one main peak at about 3. It is skewed a bit to the right and has no obvious outliers. It does appear to be roughly normal. 
+
+
+
+
 
 
 ## References : 
