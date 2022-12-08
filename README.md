@@ -169,7 +169,21 @@ This time the shape is changed a little bit.
 
 ![EmploymentRate_UnemploymentRate_scatterplot](https://user-images.githubusercontent.com/67991315/206513631-7494a474-ae90-41f2-ad1e-d8a32d3c5ba0.png)
 
+### 3: Let’s try some regression.
+
+First we will do multiple linear regression with the Deficit as the dependent variable. We’ll try this using two
+methods:
+
+#### 3a: First get a table of the pairwise correlations to see which variables are strongly correlated:
+##### Method
+- Ignore the `Date` variable.
+- Get `Pearson correlation coefficient` and `p-value` to  find the correlation between each of the two variables using **scipy.stats.pearsonr**.
+- Using **Python min()** to find `N`.
+
 ##### Result
+
+The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/main/4/pairwise_correlation_with_p_value.csv
+
 
 
 
