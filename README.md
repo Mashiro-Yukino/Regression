@@ -28,14 +28,14 @@ The data for problems 1-4 comes from FRED (the St. Louis Federal Reserve Bank).
 
 #### Methods
 
-- Using **pandas.DataFrame.describe** to generate descriptive statistics.
-- Using **pandas.DataFrame.skew** to get skewness
+- Use **pandas.DataFrame.describe** to generate descriptive statistics.
+- Use **pandas.DataFrame.skew** to get skewness
 - Calculate `SES`   [[2]](#2) using the following formula.
 
 $$S E_{\text {skew }}=\sqrt{\frac{6 \cdot n \cdot(n-1)}{(n-2) \cdot(n+1) \cdot(n+3)}}$$
 
 
-- Using **pandas.DataFrame.kurt** to generate Kurtosis Statistic
+- Use **pandas.DataFrame.kurt** to generate Kurtosis Statistic
 
 - Calculate `standard error of kurtosis` [[2]](#2) using the following formula.
 $$S E_{k}=\sqrt{\frac{\left(4 \cdot N^{2}-1\right) \cdot(N-1)}{(N-2)(N+1)(N+3)}}$$
@@ -80,7 +80,7 @@ There are a few ways to look at the summaries of the data. Let’s use a second 
 
 #### Method
 
-- Using **pandas.DataFrame.describe** to generate descriptive statistics.
+- Use **pandas.DataFrame.describe** to generate descriptive statistics.
 - Calculate the `range` by finding the difference between the min and max values 
 - Calculate the length of `missing value` by the difference between the dataframe length and the length of valid value.
 
@@ -97,10 +97,10 @@ The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/
 ##### Method
 
 - Pass in a variable that you want to choose
-- Using **pandas.DataFrame.mean**, **pandas.DataFrame.std** to calculate `mean` and `std` of the variable.
+- Use **pandas.DataFrame.mean**, **pandas.DataFrame.std** to calculate `mean` and `std` of the variable.
 - draw histogram by using **matplotlib.pyplot.hist**, first we first input `df['GDP']` to make a simple Histogram of GDP.
 - add the title and axis labels using  **plt.title**, **plt.xlabel**, **plt.ylabel**.
-- Using **plt.text** to add mean and std to the histogram.
+- Use **plt.text** to add mean and std to the histogram.
 
 ##### Result
 
@@ -179,8 +179,8 @@ methods:
 - Ignore the `Date` variable.
 - Get `Pearson correlation coefficient` and `p-value` to  find the correlation between each of the two variables using **scipy.stats.pearsonr**.
 - Using **Python min()** to find `N`.
-- For each cell of the table, use **for loop** to combine the relevant information we need for each cell in the table with **'/'** symbol.
-The final format we use is `Pearson Correlation/Sig. (2-tailed)/N`.
+- For each cell of the table, use **for loop** to combine needed informations for each cell in the table with **'/'**.
+The final format we use is `Pearson Correlation/ Sig. (2-tailed)/ N`.
 
 ##### Result
 
