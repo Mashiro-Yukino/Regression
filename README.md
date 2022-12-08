@@ -109,6 +109,29 @@ The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/
 
 The graph has one main peak at about 3. It is skewed a bit to the right and has no obvious outliers. It does appear to be roughly normal. 
 
+#### 3a: Now choose one more variable and get its histogram.
+
+##### Method
+- Repeat what we did as previos, but change `df['GDP']` to another variable. For example, this time we use `df['Loans']`.
+- **Remember**, different `Bin Size` can change the shape of the histogram slightly. So if the skewness of the histogram is not obvious, we generally don't need to worry about it. To explain what we represent, my results below will show two different bin values.
+
+
+
+##### Result
+
+###### case 1 (bins=23) : 
+![CommercialAndIndustrialLoans_histogram](https://user-images.githubusercontent.com/67991315/206506871-2a8f1112-189b-4395-9764-5b36b103e1e7.png)
+
+
+This graph also has one main peak (at about 10), is skewed a bit to the left, and has no obvious outliers. It appears to be roughly normal.
+
+###### case 1 (bins=20) : 
+![CommercialAndIndustrialLoans_histogram](https://user-images.githubusercontent.com/67991315/206509675-96814017-882d-4d01-aac9-feedf8b0c8dd.png)
+
+This time it is skewed a bit to the right. 
+
+
+
 
 
 
