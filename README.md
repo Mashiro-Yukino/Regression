@@ -106,6 +106,8 @@ The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/
 
 ![GDP_histogram](https://user-images.githubusercontent.com/67991315/206498805-287492e9-0cea-4723-a165-2c388fabcd00.png)
 
+The graph has one main peak at about 3. It is skewed a bit to the right and has no obvious outliers. It does appear to be roughly normal. 
+
 
 
 
