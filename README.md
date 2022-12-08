@@ -136,9 +136,28 @@ This time the shape is changed a little bit.
 
 
 ##### Method
-- Use `pandas.DataFrame.boxplot` to draw boxplot and pass `['GDP', 'GNP']` to column parameter.
+- Use `pandas.DataFrame.boxplot` to draw boxplot and pass `['GDP', 'GNP']` to `column`.
 - Add the title and axis labels using  **plt.title**, **plt.xlabel**, **plt.ylabel**.
 
+
+##### Result
+
+![GDP_GNP_boxplot](https://user-images.githubusercontent.com/67991315/206512056-2fdd3eac-84ab-4639-b131-11f0ea3f7689.png)
+
+
+
+#### 3b: Let’s now get a scatterplot for two variables:
+
+##### Method
+- Use `matplotlib.pyplot.scatter` to draw scatterplot and pass  `df["GDP"]` and `df["GNP"]` to `x` and `y`.
+- Add the title and axis labels using  **plt.title**, **plt.xlabel**, **plt.ylabel**.
+- Add grid lines using `plt.grid`.
+
+
+
+##### Result
+
+![GDP_GNP_scatterplot](https://user-images.githubusercontent.com/67991315/206512863-6c6172d6-fb67-4f75-9f39-4ceb95a602e0.png)
 
 
 
