@@ -132,7 +132,12 @@ This time it is skewed a bit to the right.
 
 
 
+#### 3a: Get a boxplot to compare GDP and GNP:
 
+
+##### Method
+- Use `pandas.DataFrame.boxplot` to draw boxplot and pass `['GDP', 'GNP']` to column parameter.
+- Add the title and axis labels using  **plt.title**, **plt.xlabel**, **plt.ylabel**.
 
 
 
