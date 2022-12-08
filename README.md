@@ -112,7 +112,7 @@ The graph has one main peak at about 3. It is skewed a bit to the right and has 
 #### 3a: Now choose one more variable and get its histogram.
 
 ##### Method
-- Repeat what we did as previos, but change `df['GDP']` to another variable. For example, this time we use `df['Loans']`.
+- Repeat what we did earlier, but change `df['GDP']` to another variable. For example, this time we use `df['Loans']`.
 - **Remember**, different `Bin Size` can change the shape of the histogram slightly. So if the skewness of the histogram is not obvious, we generally don't need to worry about it. To explain what we represent, my results below will show two different bin values.
 
 
@@ -132,7 +132,7 @@ This time the shape is changed a little bit.
 
 
 
-#### 3a: Get a boxplot to compare GDP and GNP:
+#### 3b: Get a boxplot to compare GDP and GNP:
 
 
 ##### Method
@@ -146,7 +146,7 @@ This time the shape is changed a little bit.
 
 
 
-#### 3b: Let’s now get a scatterplot for two variables:
+#### 3c: Let’s now get a scatterplot for two variables:
 
 ##### Method
 - Use `matplotlib.pyplot.scatter` to draw scatterplot and pass  `df["GDP"]` and `df["GNP"]` to `x` and `y`.
@@ -158,6 +158,20 @@ This time the shape is changed a little bit.
 ##### Result
 
 ![GDP_GNP_scatterplot](https://user-images.githubusercontent.com/67991315/206512863-6c6172d6-fb67-4f75-9f39-4ceb95a602e0.png)
+
+
+#### 3c: Choose one more pair of variables and get a scatterplot for them. Hand in these two graphs.
+
+##### Method
+- Repeat what we did earlier, but change `df["GDP"]` and `df["GNP"]` to another variables. For example, this time we use `df["EmploymentRate"]` and `df["UnemploymentRate"]`.
+
+##### Result
+
+![EmploymentRate_UnemploymentRate_scatterplot](https://user-images.githubusercontent.com/67991315/206513631-7494a474-ae90-41f2-ad1e-d8a32d3c5ba0.png)
+
+##### Result
+
+
 
 
 
