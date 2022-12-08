@@ -98,7 +98,7 @@ The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/
 
 - Pass in a variable that you want to choose
 - Using **pandas.DataFrame.mean**, **pandas.DataFrame.std** to calculate `mean` and `std` of the variable.
-- draw histogram by using `matplotlib.pyplot.hist`.
+- draw histogram by using **matplotlib.pyplot.hist**.
 - add the title and axis labels using  **plt.title**, **plt.xlabel**, **plt.ylabel**.
 - Using **plt.text** to add mean and std to the histogram.
 
