@@ -104,7 +104,8 @@ The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/
 
 ##### Result
 
-![CommercialAndIndustrialLoans_histogram](https://user-images.githubusercontent.com/67991315/206296866-49830a8d-125e-4c99-ba71-483df6474562.png)
+![GDP_histogram](https://user-images.githubusercontent.com/67991315/206498805-287492e9-0cea-4723-a165-2c388fabcd00.png)
+
 
 
 
