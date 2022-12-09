@@ -203,6 +203,7 @@ The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/
 
 ##### Result
 
+The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/main/4/b/anova_table.csv
 
 
 
