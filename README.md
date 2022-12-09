@@ -191,7 +191,7 @@ The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/
 
 #### 4b: The first method will decide which variables make sense to use in the regression: it might make sense to not use some because of what they are, while others have a strong relation with other variables so it doesn’t make sense to use all of them.
 
-##### Method
+##### Method (ANOVA part)
 - Use **statsmodels.regression.linear_model.OLS** and pass `Dependent Variable` into `y` and the other variables you chose into the `x`. In this case we choose `Deficit` as Dependent Variable and `GDP`, `GovernmentExpenditure`, `PersonalDisposableIncome`, `CPI` and `UnemploymentRate` as Independent variables.
     
 - Get summary by using **statsmodels.stats.anova.anova_lm**.
@@ -201,8 +201,8 @@ The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/
 <img width="511" alt="6F268922-24DA-4F77-9124-3EE0058CAEDA" src="https://user-images.githubusercontent.com/67991315/206726131-162879d0-e195-4d57-ab95-f735cee01977.png">
 
 
-##### Result
-
+##### Result (ANOVA part)
+    
 The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/main/4/b/anova_table.csv
 
 
