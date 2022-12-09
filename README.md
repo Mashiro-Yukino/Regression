@@ -238,6 +238,9 @@ The initial setup :
 ##### 1). Find the variables that are not significant at the 5% level, if any. If there are none, you are done
 
     
+`GDP, Imports, GNP, Workeroutput, GovernmentExpenditure, PersonalDisposableIncome, CPI, UnemploymentRate, TEDSpread` are not significant at the 5% level (p-value bigger than .05)
+
+    
 
 ## References : 
 <a id="1">[1]</a> 
