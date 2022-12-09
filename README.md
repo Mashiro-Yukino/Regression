@@ -228,6 +228,10 @@ And we can get:
 
 #### 4c: Now run regression with Deficit as the dependent variable but using all the other variables as independent (except
 Date).
+
+The initial setup : 
+- [ANOVA](https://github.com/Mashiro-Yukino/Regression/blob/main/4/c/Deficit_anova_table.csv)
+- [Coefficients tables](https://github.com/Mashiro-Yukino/Regression/blob/main/4/c/Deficit_initial_anova_Coefficient.csv)
     
 
     
