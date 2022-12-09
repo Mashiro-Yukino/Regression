@@ -210,7 +210,7 @@ The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/
     
 ##### Method (Coefficients part)
 - Extract coef, std err, t, and sig. information from **statsmodels .summary()**.
-- Calculate the Standardized Coefficients using the following formula.
+- Calculate the Standardized Coefficients using the following formula [[4]](#4).
 
 ![stb](https://user-images.githubusercontent.com/67991315/206727738-c0bc8b49-720e-4cfe-8be3-fff604f4b4ae.png)
 
