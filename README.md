@@ -1,4 +1,5 @@
 # <p align="center">Regression
+<p align="center">Yinzheng Xiong, Wenbo Zhao, Aaron Soice
 
 ## Preparation : 
 
