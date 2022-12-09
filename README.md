@@ -338,16 +338,32 @@ than men with hypertension)? Look at the Sig for sex*hyperten
 
 - Use `model.predict(data)` to test the trained model.
 
-- Calculate the chi-square value using the following formula [[5]](#5).
+- Calculate the chi-square value using the following formula [[5]](#5) for Omnibus Tests.
 
 ![Chi-Square-Test](https://user-images.githubusercontent.com/67991315/206797070-72b1a4b5-afd1-49ee-a5dc-6ac1d1369b3b.png)
+
+- In this case we only have only one step. This means that the chi-square values are the same for step, block and model [[6]](#6). 
+    
 
 
 ##### Result
     
 - [Omnibus Tests of Model Coefficients](https://github.com/Mashiro-Yukino/Regression/blob/main/6/Omnibus%20Tests%20of%20Model%20Coefficients.csv)
 
+- [Omnibus Tests of Model Coefficients](https://github.com/Mashiro-Yukino/Regression/blob/main/6/Omnibus%20Tests%20of%20Model%20Coefficients.csv)
+
 - [Logit Regression Results](https://github.com/Mashiro-Yukino/Regression/blob/main/6/summary.txt)
+
+<img width="621" alt="5223C881-9804-4D20-9214-6297B91CA2A9" src="https://user-images.githubusercontent.com/67991315/206797838-10ed3949-af58-42f1-b307-32708e78a0f8.png">
+    
+We get :    
+    
+- The model is significant since the p-value is less than .05.
+- Only age1 is not significant (since p_value is bigger than 0.05)
+- Since all of the variables are either scale variables or binary (we map it using [0,1] or [1,2]), the odds ratio makes sense for all of them. 
+
+
+
 
 
     
@@ -377,3 +393,6 @@ https://www.analyticsvidhya.com/blog/2021/03/standardized-vs-unstandardized-regr
     
 <a id="5">[5]</a> 
 https://byjus.com/maths/chi-square-test/
+
+<a id="6">[6]</a> 
+https://www.restore.ac.uk/srme/www/fac/soc/wie/research-new/srme/modules/mod4/12/index.html
