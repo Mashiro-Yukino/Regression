@@ -189,6 +189,14 @@ The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/
 
 
 
+#### 4b: The first method will decide which variables make sense to use in the regression: it might make sense to not use some because of what they are, while others have a strong relation with other variables so it doesn’t make sense to use all of them.
+
+##### Method
+- Use **statsmodels.regression.linear_model.OLS** to 
+
+##### Result
+
+
 
 
 ## References : 
