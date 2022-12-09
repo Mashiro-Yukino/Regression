@@ -204,8 +204,14 @@ The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/
 ##### Result (ANOVA part)
     
 The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/main/4/b/anova_table.csv
+    
+    
+    
+    
+##### Method (Coefficients part)
 
-
+##### Result (Coefficients part)
+    
 
 ## References : 
 <a id="1">[1]</a> 
