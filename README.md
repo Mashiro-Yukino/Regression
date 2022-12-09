@@ -220,6 +220,18 @@ The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/
     
 The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/main/4/Deficit_anova_Coefficient.csv 
 
+And we can get 1: The model is significant (the p-value is .000 which is less than .05)
+               2: All of my variables are significant at the 5% level (p-value less than .05) except GDP (p-value=.743).
+
+
+
+#### 4c: Now run regression with Deficit as the dependent variable but using all the other variables as independent (except
+Date).
+    
+
+    
+##### 1). Find the variables that are not significant at the 5% level, if any. If there are none, you are done
+
     
 
 ## References : 
