@@ -294,7 +294,7 @@ The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/
 
 
 ##### Decide if the model is significant, if each variable is, and if the interaction is at the 5% level.
-->Note: we use two-way ANOVA when we have more than one independent variable (where each of these variables
+-> Note: we use two-way ANOVA when we have more than one independent variable (where each of these variables
 are categorical; if they are quantitative we would use regression instead). We will be testing a few things separately:
 (i) are any of the groups different (test to see if the model is significant—look at the Sig for the Corrected Model)?
 (ii) are the groups for each independent variable different (in our example, is the time until CHD different by sex; is
