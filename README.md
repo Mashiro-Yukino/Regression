@@ -196,7 +196,7 @@ The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/
     
 - Get summary by using **statsmodels.stats.anova.anova_lm**.
 - Calculate `Total Sum of Squares`, `Total Degrees of Freedom` using **sum()** function.
-- 
+- Calculate the remaining values by referring to the image below.
 
 
 ##### Result
