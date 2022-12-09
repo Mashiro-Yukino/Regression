@@ -291,7 +291,20 @@ The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/
 ##### Result (Table part)
 
 ![Estimated Marginal Means of Time (years) to CHD](https://user-images.githubusercontent.com/67991315/206751306-d7af4511-f6bd-4f79-b787-ca143b37bc32.png)
-    
+
+
+##### Decide if the model is significant, if each variable is, and if the interaction is at the 5% level.
+->Note: we use two-way ANOVA when we have more than one independent variable (where each of these variables
+are categorical; if they are quantitative we would use regression instead). We will be testing a few things separately:
+(i) are any of the groups different (test to see if the model is significant—look at the Sig for the Corrected Model)?
+(ii) are the groups for each independent variable different (in our example, is the time until CHD different by sex; is
+it different by whether you have hypertension—look at the Sigs for those two lines)?
+(iii) is there interaction between the two independent variables (do women with hypertension respond differently
+than men with hypertension)? Look at the Sig for sex*hyperten
+
+(i) the model is significant since its p-value is .000
+(ii) both sex1 and hyperten are significant.
+(iii) interaction is not significant, since the p-value is .507 which is more than .05. 
     
     
     
