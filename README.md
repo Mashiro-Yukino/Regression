@@ -343,6 +343,8 @@ than men with hypertension)? Look at the Sig for sex*hyperten
 ![Chi-Square-Test](https://user-images.githubusercontent.com/67991315/206797070-72b1a4b5-afd1-49ee-a5dc-6ac1d1369b3b.png)
 
 - In this case we only have only one step. This means that the chi-square values are the same for step, block and model [[6]](#6). 
+
+- Use trained models to test their accuracy
     
 
 
