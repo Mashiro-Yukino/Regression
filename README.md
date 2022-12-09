@@ -1,5 +1,5 @@
 # <p align="center">Regression
-<p align="center">Yinzheng Xiong, Wenbo Zhao, Aaron Soice
+<p align="center">Team : Yinzheng Xiong, Wenbo Zhao, Aaron Soice
 
 ## Preparation : 
 
