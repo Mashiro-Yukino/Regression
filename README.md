@@ -246,18 +246,40 @@ The initial setup :
 ##### 2). Run regression again after dropping the variable with the largest p-value. Again, find the variables that are not significant at the 5% level until there are no variables that are not significant.
     
     
-###### method
+###### Method
     
 - Define a condition : the maximum sigma in the dictionary(list, or other datat structures are fine) is bigger than 0.05.
 - Use 'while loop' to continue filtering until the condition is not met.
 
 
-###### reult
+###### Result
     
 The Final Result : 
 - [ANOVA](https://github.com/Mashiro-Yukino/Regression/blob/main/4/c/Deficit_final_anova_table.csv)
 - [Coefficients tables](https://github.com/Mashiro-Yukino/Regression/blob/main/4/c/Deficit_final_anova_Coefficient.csv)
+
+
+
+### 5: Two-way ANOVA
     
+#### 5a: Let’s try two-way ANOVA to see if sex and ‘whether hypertension is present’ have an impact on the time until CHD.
+    
+##### Method
+    
+- Choose `timechd` as `dependent` and `['sex1', 'hyperten']` as `fixed factors`.
+- Quantify `sex1` and `hyperten` : change `Male` and `No` to `0`, and `Female` and `Yes` to 1.
+- Convert the data structure from 2D-list to array using **np.array**.
+    
+- Perform the two-way ANOVA using the anova_lm() function from the statsmodels library and print the result into CSV.
+
+###### Result
+The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/main/5/ANOVA_table.csv
+    
+    
+
+
+    
+
     
     
 
