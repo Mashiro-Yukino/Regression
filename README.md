@@ -307,6 +307,19 @@ than men with hypertension)? Look at the Sig for sex*hyperten
 (iii) interaction is not significant, since the p-value is .507 which is more than .05. 
     
     
+#### 5b: Get a boxplot for each of the subcategories:
+    
+##### Method
+    
+- Use **seaborn.boxplot** and pass `y_axis, x_axis, cluster` into `x, y, hue` separately.
+
+##### Result
+    
+![Boxplot](https://user-images.githubusercontent.com/67991315/206795710-39b553a3-6e4f-45a3-bd34-cba574e8ce1c.png)
+
+  
+    
+    
     
 
 
