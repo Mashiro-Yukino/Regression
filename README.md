@@ -362,7 +362,7 @@ We get :
     
 - The model is significant since the p-value is less than .05.
 - Only age1 is not significant (since p_value is bigger than 0.05)
-- Since all of the variables are either scale variables or binary (we map it using [0,1] or [1,2]), the odds ratio makes sense for all of them. 
+- Since all of the variables are either scale variables or binary (we map it to [0,1] or [1,2]), the odds ratio makes sense for all of them. 
 
 
 
