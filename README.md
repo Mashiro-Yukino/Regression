@@ -222,7 +222,7 @@ The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/
 
 And we can get: 
 - The model is significant (the p-value is .000 which is less than .05)
-- All of my variables are significant at the 5% level (p-value less than .05) except GDP (p-value=.743).
+- All of variables are significant at the 5% level (p-value less than .05) except GDP (p-value=.743).
 
 
 
