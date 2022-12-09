@@ -209,8 +209,17 @@ The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/
     
     
 ##### Method (Coefficients part)
+- Extract coef, std err, t, and sig. information from **statsmodels .summary()**.
+- Calculate the Standardized Coefficients using the following formula.
+
+![stb](https://user-images.githubusercontent.com/67991315/206727738-c0bc8b49-720e-4cfe-8be3-fff604f4b4ae.png)
+
+
 
 ##### Result (Coefficients part)
+    
+The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/main/4/Deficit_anova_Coefficient.csv 
+
     
 
 ## References : 
@@ -223,3 +232,8 @@ https://www.stattutorials.com/EXCEL/EXCEL-DESCRIPTIVE-STATISTICS.html
     
 <a id="3">[3]</a> 
 https://online.stat.psu.edu/stat415/book/export/html/822
+    
+    
+    
+<a id="4">[4]</a> 
+https://www.analyticsvidhya.com/blog/2021/03/standardized-vs-unstandardized-regression-coefficient/
