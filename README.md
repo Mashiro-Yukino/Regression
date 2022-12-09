@@ -192,7 +192,12 @@ The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/
 #### 4b: The first method will decide which variables make sense to use in the regression: it might make sense to not use some because of what they are, while others have a strong relation with other variables so it doesn’t make sense to use all of them.
 
 ##### Method
-- Use **statsmodels.regression.linear_model.OLS** to 
+- Use **statsmodels.regression.linear_model.OLS** and pass `Dependent Variable` into `y` and the other variables you chose into the `x`. In this case we choose `Deficit` as Dependent Variable and `GDP`, `GovernmentExpenditure`, `PersonalDisposableIncome`, `CPI` and `UnemploymentRate` as Independent variables.
+    
+- Get summary by using **statsmodels.stats.anova.anova_lm**.
+- Calculate `Total Sum of Squares`, `Total Degrees of Freedom` using **sum()** function.
+- 
+
 
 ##### Result
 
@@ -206,3 +211,6 @@ https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_spss.html
 
 <a id="2">[2]</a> 
 https://www.stattutorials.com/EXCEL/EXCEL-DESCRIPTIVE-STATISTICS.html
+    
+<a id="3">[3]</a> 
+https://online.stat.psu.edu/stat415/book/export/html/822
