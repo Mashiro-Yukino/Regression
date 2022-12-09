@@ -320,7 +320,34 @@ than men with hypertension)? Look at the Sig for sex*hyperten
   
     
     
+### 6: Here we will get the logistic regression model to see what affects whether the person has a stroke by exam 3. 
+
+#### 6a: Get the logistic regression model for the variables you chose:
+
+##### Method
+
+- Drop rows with missing values.
     
+- Map non-numeric values to numbers using dictionary.
+    
+```py
+{'No': 0, 'Yes': 1, 'Male': 1, 'Female': 2}    
+```
+
+- Build the logistic regression model using **statsmodels.discrete.discrete_model.Logit**
+
+- Use `model.predict(data)` to test the trained model.
+
+- Calculate the chi-square value using the following formula [[5]](#5).
+
+![Chi-Square-Test](https://user-images.githubusercontent.com/67991315/206797070-72b1a4b5-afd1-49ee-a5dc-6ac1d1369b3b.png)
+
+
+##### Result
+    
+- [Omnibus Tests of Model Coefficients](https://github.com/Mashiro-Yukino/Regression/blob/main/6/Omnibus%20Tests%20of%20Model%20Coefficients.csv)
+
+- [Logit Regression Results](https://github.com/Mashiro-Yukino/Regression/blob/main/6/summary.txt)
 
 
     
@@ -345,3 +372,8 @@ https://online.stat.psu.edu/stat415/book/export/html/822
     
 <a id="4">[4]</a> 
 https://www.analyticsvidhya.com/blog/2021/03/standardized-vs-unstandardized-regression-coefficient/
+    
+    
+    
+<a id="5">[5]</a> 
+https://byjus.com/maths/chi-square-test/
