@@ -240,6 +240,25 @@ The initial setup :
     
 `GDP, Imports, GNP, Workeroutput, GovernmentExpenditure, PersonalDisposableIncome, CPI, UnemploymentRate, TEDSpread` are not significant at the 5% level (p-value bigger than .05)
 
+
+##### 2). Run regression again after dropping the variable with the largest p-value. Again, find the variables that are not significant at the 5% level until there are no variables that are not significant.
+    
+    
+###### method
+    
+- Define a condition : the maximum sigma in the dictionary(list, or other datat structures are fine) is bigger than 0.05.
+- Use 'while loop' to continue filtering until the condition is not met.
+
+
+###### reult
+    
+The Final Result : 
+- [ANOVA](https://github.com/Mashiro-Yukino/Regression/blob/main/4/c/Deficit_final_anova_table.csv)
+- [Coefficients tables](https://github.com/Mashiro-Yukino/Regression/blob/main/4/c/Deficit_final_anova_Coefficient.csv)
+    
+    
+    
+
     
 
 ## References : 
