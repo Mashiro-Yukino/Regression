@@ -271,6 +271,12 @@ The Final Result :
 - Convert the data structure from 2D-list to array using **np.array**.
     
 - Perform the two-way ANOVA using the anova_lm() function from the statsmodels library and print the result into CSV.
+    
+    
+- Add additional needed information to the table.
+    - `corrected_total_sq` : Use the for loop to keep adding the square of the difference between 'observed time_chd value' and 'mean of time_chd value'
+    - `significance of Corrected Model` : Use **scipy.stats.f.cdf()** to find `cdf`, and p-value would be 1-cdf.
+    - `df of Corrected Total` : `len(dataframe) - 1`
 
 ###### Result (Table part)
 The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/main/5/ANOVA_table.csv
