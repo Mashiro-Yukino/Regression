@@ -350,7 +350,7 @@ than men with hypertension)? Look at the Sig for sex*hyperten
     
 - [Omnibus Tests of Model Coefficients](https://github.com/Mashiro-Yukino/Regression/blob/main/6/Omnibus%20Tests%20of%20Model%20Coefficients.csv)
 
-- [Omnibus Tests of Model Coefficients](https://github.com/Mashiro-Yukino/Regression/blob/main/6/Omnibus%20Tests%20of%20Model%20Coefficients.csv)
+- [Prediction Table](https://github.com/Mashiro-Yukino/Regression/blob/main/6/prediction_table.csv)
 
 - [Logit Regression Results](https://github.com/Mashiro-Yukino/Regression/blob/main/6/summary.txt)
 
