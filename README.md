@@ -264,16 +264,29 @@ The Final Result :
     
 #### 5a: Let’s try two-way ANOVA to see if sex and ‘whether hypertension is present’ have an impact on the time until CHD.
     
-##### Method
+##### Method (Table part)
     
-- Choose `timechd` as `dependent` and `['sex1', 'hyperten']` as `fixed factors`.
+- Choose `timechd` as `Dependent Variable` and `['sex1', 'hyperten']` as `Fixed factors`.
 - Quantify `sex1` and `hyperten` : change `Male` and `No` to `0`, and `Female` and `Yes` to 1.
 - Convert the data structure from 2D-list to array using **np.array**.
     
 - Perform the two-way ANOVA using the anova_lm() function from the statsmodels library and print the result into CSV.
 
-###### Result
+###### Result (Table part)
 The whole summary we get is : https://github.com/Mashiro-Yukino/Regression/blob/main/5/ANOVA_table.csv
+
+
+##### Method (Plot part)
+    
+- Use **seaborn.lmplot** to draw the lineplot,  put `sex1` into Horizontal Axis, `time_chd` into Vertical Axis, and `hyperten` into Hue.
+    
+- Add labels and set limits.
+
+##### Result (Table part)
+
+![Estimated Marginal Means of Time (years) to CHD](https://user-images.githubusercontent.com/67991315/206751306-d7af4511-f6bd-4f79-b787-ca143b37bc32.png)
+    
+    
     
     
 
