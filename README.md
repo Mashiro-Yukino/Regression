@@ -127,7 +127,7 @@ The graph has one main peak at about 3. It is skewed a bit to the right and has 
 
 This graph also has one main peak (at about 10), is skewed a bit to the left, and has no obvious outliers. It appears to be roughly normal.
 
-###### case 1 (bins=20) : 
+###### case 2 (bins=20) : 
 ![CommercialAndIndustrialLoans_histogram](https://user-images.githubusercontent.com/67991315/206509675-96814017-882d-4d01-aac9-feedf8b0c8dd.png)
 
 This time the shape is changed a little bit.
