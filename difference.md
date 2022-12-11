@@ -11,3 +11,4 @@
 
 ## 6). logit regression.
 - **Missing Values**: we used Python to ignore missing values in the data, this means that the missing values will not be included in the analysis, and the coefficients and other results will be based only on the non-missing data. On the other hand, SPSS may use a different method for dealing with missing values, such as imputing the missing values using a specific algorithm, the results produced by the two differen method could be slightly different.
+- **The Omnibus Test of Model Coefficients**: There might be two different algorithms used for performing the chi-square test. For example, one may use Pearson's Chi-Square Test, while another may use Deviance Chi-Square Test. However, the results obtained from using these different algorithms are same, and the regression models generated are both pretty accurate.
