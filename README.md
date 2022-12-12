@@ -338,6 +338,8 @@ than men with hypertension)? Look at the Sig for sex*hyperten
 
 - Use `model.predict(data)` to test the trained model.
 
+- handle outliers (In this case we ignore the significant different values)
+
 - Calculate the chi-square value using the following formula [[5]](#5) for Omnibus Tests.
 
 ![Chi-Square-Test](https://user-images.githubusercontent.com/67991315/206797070-72b1a4b5-afd1-49ee-a5dc-6ac1d1369b3b.png)
