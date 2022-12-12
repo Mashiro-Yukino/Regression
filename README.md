@@ -23,6 +23,9 @@ pandas.read_spss(path, usecols=None, convert_categoricals=True)
 ### Questions Description
 
 The data for problems 1-4 comes from FRED (the St. Louis Federal Reserve Bank). 
+    
+    
+The data for problems 5-6 comes from the Framingham heart study (lab1a.sav).
 
 ## Regression related questions
 
